@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^secret index.php?secret=true [NC,L]
