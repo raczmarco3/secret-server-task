@@ -29,6 +29,10 @@ Class BaseController
         } catch (Exception $e) {
             throw new Exception($e->getMessage());   
         } 
+    }
 
+    function getData($httpHeaders=array())
+    {
+        // stuff
     }
 }
