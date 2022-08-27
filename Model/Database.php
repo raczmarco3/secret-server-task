@@ -1,6 +1,5 @@
 <?php
-
-require_once "../config.php";
+require_once "config.php";
 require_once "Secret.php";
 
 Class Database 
@@ -40,11 +39,11 @@ Class Database
         $remainingViews = $secret->getRemainingViews();
 
         $query = "INSERT INTO `secret` SET hash = '$hash', secretText = '$secretText', createdAt = '$createdAt', 
-                                            expiresAt = $expiresAt, remainingViews = $remainingViews;";
+                                            expiresAt = '$expiresAt', remainingViews = $remainingViews;";
         try {
             $result = $this -> connection -> query($query);
         } catch (Exception $e) {
-            echo "<br>Caught Exception: ", $e -> getMessage(), "<br>";   
+            throw new Exception($e->getMessage());   
         } 
     }
 }
