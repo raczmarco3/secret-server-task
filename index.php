@@ -58,7 +58,13 @@ if(isset($_GET["secret"]) && !isset($uri[3])) {
 
 if(isset($_POST["submit"])) {
     if(empty($_POST["secretText"]) || empty($_POST["expireAfterViews"]) || empty($_POST["expireAfter"])) {
-        echo "Input field must not be empty!";
+        if(is_numeric($_POST["expireAfterViews"]) && $_POST["expireAfterViews"]<1) {
+            echo "expireAfterViews should be bigger than 0!";
+        } else {
+            echo "Input field must not be empty!";
+        }
+    } else if(!is_numeric($_POST["expireAfterViews"]) || !is_numeric($_POST["expireAfter"])) {
+        echo "expireAfterViews and expireAfter should be a number!";
     } else {
         try {
             $baseController->createSecret($_POST["secretText"], $_POST["expireAfterViews"], $_POST["expireAfter"]);
@@ -77,5 +83,4 @@ if(isset($_POST["getSecret"])) {
         header($redirect);
     }
 }
-
 ?>
