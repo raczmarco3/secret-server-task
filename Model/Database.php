@@ -45,4 +45,15 @@ Class Database
             throw new Exception($e->getMessage());   
         } 
     }
+
+    // Reduce view count
+    public function decreaseViewCount($hash) 
+    {
+        $query = "UPDATE `secret` SET remainingViews = remainingViews - 1 WHERE hash = '$hash';";
+        try {
+            $result = $this -> connection -> query($query);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());   
+        }
+    }
 }

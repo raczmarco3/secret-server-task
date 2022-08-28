@@ -23,7 +23,7 @@ if(isset($_GET["secret"]) && !isset($uri[3])) {
         $_SERVER['CONTENT_TYPE'] = $_SESSION["Content-type"];
         unset($_SESSION["Content-type"]);
     }
-       
+           
     if(!isset($_SERVER['CONTENT_TYPE'])){
         $baseController->getData($uri[3], array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
     } else if ($_SERVER['CONTENT_TYPE'] == 'application/json') {

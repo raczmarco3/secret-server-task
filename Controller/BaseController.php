@@ -38,11 +38,13 @@ Class BaseController
     function getData($hash, $httpHeaders=array())
     {
         $secret = $this->database->selectSecret($hash);
-        // If secret not exists
-        if(empty($secret)) {
+        // If secret not exists or there are no more views left
+        if(empty($secret) || $secret["remainingViews"]<=0) {
             header("HTTP/1.1 404 Not Found");
             exit();
         } else {
+            // Decrease viewCount by 1
+            $this->decreaseViewCount($hash);
             // Set Content-type
             if (is_array($httpHeaders) && count($httpHeaders)) {
                 foreach ($httpHeaders as $httpHeader) {
@@ -96,5 +98,10 @@ Class BaseController
             expireAfter <input type="number" name="expireAfter" required>
             <input type="submit" name="submit" value="Submit">
         </form>';
+    }
+    // Reduce view count
+    function decreaseViewCount($hash)
+    {
+        $this->database->decreaseViewCount($hash);
     }
 }
