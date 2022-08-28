@@ -7,7 +7,8 @@ Class BaseController
 {
     private $database = null;
 
-    function __construct() {
+    function __construct() 
+    {
         $this->database = new Database();
     }
 

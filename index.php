@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 require_once "Controller/BaseController.php";
 
@@ -12,11 +13,15 @@ $baseController = new BaseController();
 
 // Check url for location
 if(isset($_GET["secret"]) && !isset($uri[3])) {  
+    // Print necessary html
     $baseController->printHtml();
-    unset($_SESSION["Content-type"]);  
+    unset($_SESSION["Content-type"]);
+
+    // Print forms  
     $baseController->printNewSecretForm();
     $baseController->echoGetSecretForm();
 } else if(!isset($_GET["secret"]) && !isset($uri[3])) {
+    // Print necessary html
     $baseController->printHtml();
     unset($_SESSION["Content-type"]);
     $baseController->echoGetSecretForm();
@@ -27,8 +32,9 @@ if(isset($_GET["secret"]) && !isset($uri[3])) {
     if(isset($_SESSION["Content-type"])) {
         $_SERVER['CONTENT_TYPE'] = $_SESSION["Content-type"];        
     }
-           
-    if(!isset($_SERVER['CONTENT_TYPE'])){
+    
+    // Check Content-type for proper response
+    if(!isset($_SERVER['CONTENT_TYPE'])) {
         $baseController->getData($uri[3], array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
     } else if ($_SERVER['CONTENT_TYPE'] == 'application/json') {
         $baseController->getData($uri[3], array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
