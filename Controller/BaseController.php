@@ -81,12 +81,14 @@ Class BaseController
     {
         echo '
         <form method="POST" action="">
-            hash <input type="text" name="hash" required>
-            Response content type: <select name="options" required>
-            <option value="application/json">application/json</option>
-            <option value="application/xml">application/xml</option>
+            <label for="hash">Hash:</label>
+            <input type="text" name="hash" placeholder="Enter your Hash" required>
+            <label for="options">Chose Content-type:</label>
+            <select name="options" required>
+                <option value="application/json">application/json</option>
+                <option value="application/xml">application/xml</option>
             <input type="submit" name="getSecret" value="Confirm" >
-        <form>';
+        </form>';
     }
 
     // Print new Secret form
@@ -94,15 +96,31 @@ Class BaseController
     {
         echo '
         <form method="POST" action="">
-            secret <input type="text" name="secretText" required>
-            expireAfterViews <input type="number" name="expireAfterViews" min="1" required>
-            expireAfter <input type="number" name="expireAfter" required>
+            <label for="secretText">Secret:</label> 
+            <input type="text" name="secretText" placeholder="What is your secret?" required>
+            <label for="expireAfterViews">View count:</label>
+            <input type="number" name="expireAfterViews" min="1" placeholder="How many times would you like to visit your secret?" required>
+            <label for="expireAfter">Expire (in minutes):</label>
+            <input type="number" name="expireAfter" placeholder="When should your secret expire?" required>
             <input type="submit" name="submit" value="Submit">
         </form>';
     }
+
     // Reduce view count
     function decreaseViewCount($hash)
     {
         $this->database->decreaseViewCount($hash);
+    }
+
+    // Print html
+    function printHtml()
+    {
+        echo '
+        <!DOCTYPE html>
+        <head>
+            <title>Secret Server</title>
+            <link rel="stylesheet" href="style.css">
+        </head>
+        <body>';
     }
 }

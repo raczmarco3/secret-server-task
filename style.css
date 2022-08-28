@@ -1,0 +1,69 @@
+form {
+    background-color: #f2f2f2;
+    width: 550px;
+    margin: auto;
+    border-radius: 25px;
+    padding: 30px;
+    margin-top: 25px;
+}
+
+input {
+    width: -webkit-fill-available;
+    border-radius: 25px;
+    padding: 8px;
+    margin: 5px;
+    background-color: #b3b3b3;
+    color: white;
+}
+
+input[type=submit] {
+    cursor: pointer;
+    background-color: cornflowerblue;
+}
+
+input[type=submit]:hover {
+    cursor: pointer;
+    background-color: #4881ea;
+}
+
+select {
+    width: -webkit-fill-available;
+    border-radius: 25px;
+    padding: 8px;
+    margin: 5px;
+}
+
+label {
+    color: grey;
+    font-size: medium;
+}
+
+a {
+    display: block;
+    margin: auto;
+    padding: 10px;
+    background-color: cornflowerblue;
+    color: white;
+    text-decoration: none;
+    margin-top: 10px;
+    width: 550px;
+    text-align: center;
+}
+
+a:hover {
+    background-color: #4881ea;
+}
+
+.success {
+    text-align: center;
+    margin: 15px;
+    color: green;
+    font-size: larger;
+}
+
+.error {
+    text-align: center;
+    margin: 15px;
+    color: red;
+    font-size: larger;
+}

@@ -10,18 +10,22 @@ if(isset($uri[3]) && empty($uri[3])) {
 }
 $baseController = new BaseController();
 
-if(isset($_GET["secret"]) && !isset($uri[3])) {    
+// Check url for location
+if(isset($_GET["secret"]) && !isset($uri[3])) {  
+    $baseController->printHtml();
+    unset($_SESSION["Content-type"]);  
     $baseController->printNewSecretForm();
     $baseController->echoGetSecretForm();
 } else if(!isset($_GET["secret"]) && !isset($uri[3])) {
+    $baseController->printHtml();
+    unset($_SESSION["Content-type"]);
     $baseController->echoGetSecretForm();
     // Homepage link to add new Secret
     echo '<a href="secret">Add new Secret</a>';
 } else if(isset($uri[3])){
     // Check if we came from the form
     if(isset($_SESSION["Content-type"])) {
-        $_SERVER['CONTENT_TYPE'] = $_SESSION["Content-type"];
-        unset($_SESSION["Content-type"]);
+        $_SERVER['CONTENT_TYPE'] = $_SESSION["Content-type"];        
     }
            
     if(!isset($_SERVER['CONTENT_TYPE'])){
@@ -41,25 +45,26 @@ if(isset($_POST["submit"])) {
     if(empty($_POST["secretText"]) || empty($_POST["expireAfterViews"]) 
     || (empty($_POST["expireAfter"]) && !is_numeric($_POST["expireAfter"]))) {
         if(is_numeric($_POST["expireAfterViews"]) && $_POST["expireAfterViews"]<1) {
-            echo "expireAfterViews should be bigger than 0!";
+            echo '<div class="error">expireAfterViews should be bigger than 0!</div>';
         } else {
-            echo "Input field must not be empty!";
+            echo '<div class="error">Input field must not be empty!</div>';
         }
     } else if(!is_numeric($_POST["expireAfterViews"]) || !is_numeric($_POST["expireAfter"])) {
-        echo "expireAfterViews and expireAfter should be a number!";
+        echo '<div class="error">expireAfterViews and expireAfter should be a number!</div>';
     } else {
         try {
-            echo "The hash for your Secret is: ", 
-            $baseController->createSecret($_POST["secretText"], $_POST["expireAfterViews"], $_POST["expireAfter"]);
+            echo '<div class="success">Secret created successfully! The hash for your Secret is: ', 
+            $baseController->createSecret($_POST["secretText"], $_POST["expireAfterViews"], $_POST["expireAfter"])
+            ,'</div>';
         } catch (Exception $e) {
-            echo "<br>Caught Exception: ", $e -> getMessage(), "<br>";   
+            echo '<div class="error">Caught Exception: ', $e -> getMessage(), "</div>";   
         }        
     }
 }
 
 if(isset($_POST["getSecret"])) {
     if(empty($_POST["hash"])) {
-        echo "Input field must not be empty!";
+        echo '<div class="error">Input field must not be empty!</div>';
     } else {
         $redirect = 'Location: secret/'.$_POST["hash"];
         $_SESSION["Content-type"] = $_POST["options"];
@@ -67,3 +72,5 @@ if(isset($_POST["getSecret"])) {
     }
 }
 ?>
+    </body>
+</html>

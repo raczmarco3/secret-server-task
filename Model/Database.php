@@ -12,7 +12,7 @@ Class Database
         try {
             $this->connection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME);
         } catch (Exception $e) {
-            echo "<br>Caught Exception: ", $e -> getMessage(), "<br>";   
+            echo '<div class="error">Caught Exception: ', $e -> getMessage(), "</div>";   
         }     
     }
     
@@ -24,7 +24,7 @@ Class Database
             $result = $this->connection->query($query);
             return $result->fetch_assoc();
         } catch (Exception $e) {
-            echo "<br>Caught Exception: ", $e -> getMessage(), "<br>";   
+            echo '<div class="error">Caught Exception: ', $e -> getMessage(), "</div>";   
         }        
     }
 
