@@ -11,33 +11,12 @@ if(isset($uri[3]) && empty($uri[3])) {
 $baseController = new BaseController();
 
 if(isset($_GET["secret"]) && !isset($uri[3])) {    
-?>
-    <form method="POST" action="">
-        secret <input type="text" name="secretText" required>
-        expireAfterViews <input type="number" name="expireAfterViews" min="1" required>
-        expireAfter <input type="number" name="expireAfter" required>
-        <input type="submit" name="submit" value="Submit">
-    </form>
-
-    <form method="POST" action="">
-        hash <input type="text" name="hash" required>
-        Response content type: <select name="options" required>
-            <option value="json">application/json</option>
-            <option value="xml">application/xml</option>
-        <input type="submit" name="getSecret" value="Confirm" >
-    <form>
-<?php
+    $baseController->printNewSecretForm();
+    $baseController->echoGetSecretForm();
 } else if(!isset($_GET["secret"]) && !isset($uri[3])) {
-?>
-    <form method="POST" action="">
-        hash <input type="text" name="hash" required>
-        Response content type: <select name="options" required>
-            <option value="application/json">application/json</option>
-            <option value="application/xml">application/xml</option>
-        <input type="submit" name="getSecret" value="Confirm" >
-        <a href="secret">Add new Secret</a>
-    <form>
-<?php
+    $baseController->echoGetSecretForm();
+    // Homepage link to add new Secret
+    echo '<a href="secret">Add new Secret</a>';
 } else if(isset($uri[3])){
     // Check if we came from the form
     if(isset($_SESSION["Content-type"])) {
