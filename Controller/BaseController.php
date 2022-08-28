@@ -11,6 +11,7 @@ Class BaseController
         $this->database = new Database();
     }
 
+    // Create new Secret
     function createSecret($secretText, $expireAfterViews, $expireAfter)
     {
         // Get current date
@@ -31,8 +32,29 @@ Class BaseController
         } 
     }
 
-    function getData($httpHeaders=array())
+    // Get and print data according to Content-type
+    function getData($hash, $httpHeaders=array())
     {
-        // stuff
+        $secret = $this->database->selectSecret($hash);
+        // If secret not exists
+        if(empty($secret)) {
+            header("HTTP/1.1 404 Not Found");
+            exit();
+        } else {
+            // Set Content-type
+            if (is_array($httpHeaders) && count($httpHeaders)) {
+                foreach ($httpHeaders as $httpHeader) {
+                    header($httpHeader);
+                }
+            }
+            // Print data
+            if(in_array("Content-Type: application/json", $httpHeaders)) {
+                echo json_encode($secret);
+                exit();
+            } else if(in_array("Content-Type: application/xml", $httpHeaders)) {
+                echo xml_encode($secret);
+                exit();
+            }
+        }
     }
 }

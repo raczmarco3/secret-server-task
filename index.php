@@ -46,17 +46,19 @@ if(isset($_GET["secret"]) && !isset($uri[3])) {
     }
        
     if(!isset($_SERVER['CONTENT_TYPE'])){
-        $baseController->getData(array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
+        $baseController->getData($uri[3], array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
     } else if ($_SERVER['CONTENT_TYPE'] == 'application/json') {
-        $baseController->getData(array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
+        $baseController->getData($uri[3], array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
     } else if($_SERVER['CONTENT_TYPE'] == 'application/xml') {
-        $baseController->getData(array('Content-Type: application/xml', 'HTTP/1.1 200 OK'));
+        $baseController->getData($uri[3], array('Content-Type: application/xml', 'HTTP/1.1 200 OK'));
     } else {
-        $baseController->getData(array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
+        $baseController->getData($uri[3], array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
     }
 }
 
+// Check if form is submitted
 if(isset($_POST["submit"])) {
+    // Check input fields
     if(empty($_POST["secretText"]) || empty($_POST["expireAfterViews"]) || empty($_POST["expireAfter"])) {
         if(is_numeric($_POST["expireAfterViews"]) && $_POST["expireAfterViews"]<1) {
             echo "expireAfterViews should be bigger than 0!";
