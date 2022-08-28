@@ -22,11 +22,13 @@ Class BaseController
         $expiresAt = $expiresAt + (60*$expireAfter);
         // Convert it back to datetime
         $expiresAt = date("Y-m-d H:i:s", $expiresAt);
+        // Generate hash (database prevents duplicates)        
+        $hash = hash("sha256", $createdAt);
 
-        // Hash is empty because we will generate it later
-        $secret = new Secret('', $secretText, $createdAt, $expiresAt, $expireAfterViews);
+        $secret = new Secret($hash, $secretText, $createdAt, $expiresAt, $expireAfterViews);
         try {
             $this->database->createSecret($secret);
+            return $hash;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());   
         } 

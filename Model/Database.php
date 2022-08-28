@@ -30,9 +30,8 @@ Class Database
 
     // Create new Secret
     public function createSecret($secret)
-    {
-        // Generate hash (database prevents duplicates)
-        $hash = hash("sha256", $secret->getCreatedAt());
+    {        
+        $hash = $secret->getHash();
         $secretText = $secret->getSecretText();
         $createdAt = $secret->getCreatedAt();
         $expiresAt = $secret->getExpiresAt();
