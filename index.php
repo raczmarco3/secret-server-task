@@ -48,6 +48,7 @@ if(isset($_POST["submit"])) {
         echo "expireAfterViews and expireAfter should be a number!";
     } else {
         try {
+            echo "The hash for your Secret is: ", 
             $baseController->createSecret($_POST["secretText"], $_POST["expireAfterViews"], $_POST["expireAfter"]);
         } catch (Exception $e) {
             echo "<br>Caught Exception: ", $e -> getMessage(), "<br>";   
