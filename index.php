@@ -38,7 +38,8 @@ if(isset($_GET["secret"]) && !isset($uri[3])) {
 // Check if form is submitted
 if(isset($_POST["submit"])) {
     // Check input fields
-    if(empty($_POST["secretText"]) || empty($_POST["expireAfterViews"]) || empty($_POST["expireAfter"])) {
+    if(empty($_POST["secretText"]) || empty($_POST["expireAfterViews"]) 
+    || (empty($_POST["expireAfter"]) && !is_numeric($_POST["expireAfter"]))) {
         if(is_numeric($_POST["expireAfterViews"]) && $_POST["expireAfterViews"]<1) {
             echo "expireAfterViews should be bigger than 0!";
         } else {

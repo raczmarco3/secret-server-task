@@ -39,7 +39,8 @@ Class BaseController
     {
         $secret = $this->database->selectSecret($hash);
         // If secret not exists or there are no more views left
-        if(empty($secret) || $secret["remainingViews"]<=0) {
+        if(empty($secret) || $secret["remainingViews"]<=0 
+        || ($secret["expiresAt"] < date('Y-m-d H:i:s', time()) && $secret["expiresAt"]!=$secret["createdAt"])) {
             header("HTTP/1.1 404 Not Found");
             exit();
         } else {
