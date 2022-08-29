@@ -27,7 +27,7 @@ if(isset($_GET["secret"]) && !isset($uri[3])) {
     $baseController->echoGetSecretForm();
     // Homepage link to add new Secret
     echo '<a href="secret">Add new Secret</a>';
-} else if(isset($uri[3]) && $uri[3]!=0){
+} else if(isset($uri[3]) && $uri[3]!=0) {
     // Check if we came from the form
     if(isset($_SESSION["Content-type"])) {
         $_SERVER['CONTENT_TYPE'] = $_SESSION["Content-type"];        
