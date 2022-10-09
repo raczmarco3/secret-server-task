@@ -124,4 +124,14 @@ Class BaseController
         </head>
         <body>';
     }
+
+    // Check Content-type for proper response
+    function checkContentType($contentType, $uri)
+    {
+        if ($contentType == 'application/json') {
+            $this->getData($uri[3], array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
+        } else if($contentType == 'application/xml') {
+            $this->getData($uri[3], array('Content-Type: application/xml', 'HTTP/1.1 200 OK'));
+        } 
+    }
 }

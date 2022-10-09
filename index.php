@@ -7,6 +7,7 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode( '/', $uri);
 
 $baseController = new BaseController();
+$_SERVER['CONTENT_TYPE'] = 'application/json';
 
 // Check url for location
 if(isset($_GET["secret"]) && !isset($uri[3])) {  
@@ -31,15 +32,7 @@ if(isset($_GET["secret"]) && !isset($uri[3])) {
     }
     
     // Check Content-type for proper response
-    if(!isset($_SERVER['CONTENT_TYPE'])) {
-        $baseController->getData($uri[3], array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
-    } else if ($_SERVER['CONTENT_TYPE'] == 'application/json') {
-        $baseController->getData($uri[3], array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
-    } else if($_SERVER['CONTENT_TYPE'] == 'application/xml') {
-        $baseController->getData($uri[3], array('Content-Type: application/xml', 'HTTP/1.1 200 OK'));
-    } else {
-        $baseController->getData($uri[3], array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
-    }
+    $baseController->checkContentType($_SERVER['CONTENT_TYPE'], $uri);
 }
 
 // Check if form is submitted
