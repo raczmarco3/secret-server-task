@@ -53,7 +53,7 @@ Class BaseController
                     header($httpHeader);
                 }
             }
-            // Print data
+            // Print data according to Content-Type
             if(in_array("Content-Type: application/json", $httpHeaders)) {
                 echo json_encode($secret);
                 exit();

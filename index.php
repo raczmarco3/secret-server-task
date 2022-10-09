@@ -5,10 +5,7 @@ require_once "Controller/BaseController.php";
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode( '/', $uri);
-// Fix for "secret/" url
-if(isset($uri[3]) && empty($uri[3])) {
-    $uri[3] = 0;
-}
+
 $baseController = new BaseController();
 
 // Check url for location
