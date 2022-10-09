@@ -1,6 +1,6 @@
 PHP version: 8.1.6
 
-Live preview: https://secret-server-task.000webhostapp.com/ (Chrome doesn't like it for whatever reason)
+Live preview: https://secret-server-task.000webhostapp.com/ 
 
 Add new Secret:
 ![1](https://user-images.githubusercontent.com/39013317/187085151-2f01b27d-cd94-4f63-a7f2-c7908a2b3387.png)
